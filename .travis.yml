@@ -12,8 +12,6 @@ services:
   - docker
 
 after_success:
-  - echo $TRAVIS_COMMIT
-  - echo $REPO
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - docker build -t $REPO:$TRAVIS_COMMIT .

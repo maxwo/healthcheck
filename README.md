@@ -1,5 +1,6 @@
 # healthcheck
 [![Build Status](https://travis-ci.org/maxwo/healthcheck.svg?branch=master)](https://travis-ci.org/maxwo/healthcheck)
+
 A dummy project implementing a health check for testing purposes.
 
 ## Get healthcheck state

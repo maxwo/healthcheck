@@ -12,9 +12,9 @@ services:
   - docker
 
 after_success:
+  - echo $COMMIT
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-  - docker build -t $COMMIT .
-  - docker tag $COMMIT $REPO:$TAG
-  - docker tag $COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker build -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
   - docker push $REPO

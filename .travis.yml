@@ -14,28 +14,12 @@ script:
   - mvn clean package
 
 after_success:
-  - mvn javadoc:javadoc
   - git clone https://github.com/maxwo/ci.git
+  - ci/travis/codacy_java_coverage.sh
+  - ci/travis/docker_deploy.sh
+  - mvn javadoc:javadoc
 
 deploy:
-  - provider: script
-    skip_cleanup: true
-    script: ci/travis/codacy_java_coverage.sh
-    on:
-      all_branches: true
-
-  - provider: script
-    skip_cleanup: true
-    script: ci/travis/docker_deploy.sh
-    on:
-      tags: true
-
-  - provider: script
-    skip_cleanup: true
-    script: ci/travis/docker_deploy.sh
-    on:
-      all_branches: true
-
   - provider: pages
     local_dir: target/site/apidocs
     skip_cleanup: true

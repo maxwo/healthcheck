@@ -13,7 +13,7 @@ services:
 - docker
 
 after_success:
-  - git clone https://github.com/maxwo/ci.git
+  - wget https://github.com/maxwo/ci/releases/download/0.1.0/ci-0.1.0-sources.tar.gz -O - | tar -xz
   - ci/travis/codacy_java_coverage.sh
   - ci/travis/coveralls_java_coverage.sh
   - ci/travis/docker_deploy.sh

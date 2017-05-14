@@ -10,9 +10,6 @@ env:
 services:
 - docker
 
-script:
-  - mvn clean package
-
 after_success:
   - git clone https://github.com/maxwo/ci.git
   - ci/travis/codacy_java_coverage.sh

@@ -14,8 +14,7 @@ services:
 - docker
 
 after_success:
-- wget https://github.com/maxwo/ci/releases/download/0.1.0/ci-0.1.0-sources.tar.gz
-  -O - | tar -xz
+- wget https://github.com/maxwo/ci/releases/download/0.1.0/ci-0.1.0-sources.tar.gz -O - | tar -xz
 - ci/travis/codacy_java_coverage.sh
 - ci/travis/coveralls_java_coverage.sh
 - ci/travis/docker_deploy.sh
@@ -33,8 +32,9 @@ deploy:
   github_token: $GITHUB_TOKEN
   on:
     branch:     master
-- provider:     releases
-  api_key:      665eb95e2232dae24cb178e4e9eda9e04ddc4588
-  file:         target/*.jar
+- provider: releases
+  api_key:
+    secure: aMXkvlBNV88HToQ92y4SqhxHGVJASWuM/EtEn6DDohtlyONQOJ5zTQS/mEtDHhSKddHqDnTlbdrJMI0rhlQyIr4E74wzB/zKCkR6dcm2e1lKts0bTvqke7iO1w4mGDnAeQEBlOjrTiJItmemZg1uf45EFBljGfiQWwQlZG0I16Bl19waOQ1tv43XLOFRl1P2GJXrpwTw6W2uQfkMNUUTnFumeDvLXNIB/tePUnh3/FRQGLTj8gBG7YoU64T/XOXG4u3YTSm/HbBIU08ZVS1BCn2hSc/L4/5Hia3iWKv6uKeTEqiE/1zP9Tw/wduHordCcNYnw6tF/f/iEfa2cH8t2FSq8HzYdK/O0pmPHD0Kk0JPtm0fjGgG5f58489eeyibhNL78/nNhc/WyKrRCUTIvchkjk2/xPN1gZkkutb6u1v0PC/K+gJVB3tkqALI4HcWQ6gI1TxA5GXP3c5VOQPOcaNVdwLKuaa2+CmkMiAOibTYnJzys01pky0i4/zgZ+wZ15efk5cdcdsKLWHyjTVWFle1xSmocysEKe/Mq7GpKdvZn3Jy5+pUFKjYbKylvnEMbV01ogOTuQq+LslAV+0oYhetawMHti35KZ1xW5r7CIER7gKKWrd9/H5an2HfFHEYDEyp+NsW7XtRR5AP9j7CN6/bG6FMwsnE+Nzsn7DqgQE=
+  file: target/healthcheck-*.jar
   on:
-    tags:       true
+    tags: true

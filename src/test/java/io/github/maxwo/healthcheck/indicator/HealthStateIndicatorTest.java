@@ -18,16 +18,16 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.maxwo.healthcheck.controller;
+package io.github.maxwo.healthcheck.indicator;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -40,38 +40,36 @@ import org.springframework.test.web.servlet.MockMvc;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HealthCheckControllerTest {
+public class HealthStateIndicatorTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
+	@Autowired
+	private HealthStateIndicator healthStateIndicator;
+
 	@Test
-	public void shouldSaveHealthyState() throws Exception {
-		mockMvc.perform(
-			put("/healthcheck")
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(Boolean.TRUE.toString()))
-			.andExpect(status().isOk())
-			.andExpect(content().string("true"));
-		
-		mockMvc.perform(
-			get("/healthcheck"))
-			.andExpect(status().isOk())
-			.andExpect(content().string("true"));
+	public void shouldBeAHealthIndicator() {
+		Assert.assertTrue(healthStateIndicator instanceof HealthIndicator);
 	}
 
 	@Test
-	public void shouldSaveUnhealthyState() throws Exception {
+	public void shouldBeHealthyWhenHealthStateIsTrue() throws Exception {
 		mockMvc.perform(
 			put("/healthcheck")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(Boolean.FALSE.toString()))
-			.andExpect(status().isOk())
-			.andExpect(content().string("false"));
-		
+				.content(Boolean.TRUE.toString()));
+
+		Assert.assertEquals(Status.UP, healthStateIndicator.health().getStatus());
+	}
+
+	@Test
+	public void shouldBeUnhealthyWhenHealthStateIsFalse() throws Exception {
 		mockMvc.perform(
-			get("/healthcheck"))
-			.andExpect(status().isOk())
-			.andExpect(content().string("false"));
+			put("/healthcheck")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(Boolean.FALSE.toString()));
+
+		Assert.assertEquals(Status.DOWN, healthStateIndicator.health().getStatus());
 	}
 }

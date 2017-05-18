@@ -23,6 +23,10 @@ package io.github.maxwo.healthcheck;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -33,13 +37,33 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAutoConfiguration
 @EnableSwagger2
 public class HealthCheck {
-	
+
 	/**
 	 * Launch spring boot application.
 	 * 
-	 * @param args Arguments.
+	 * @param args
+	 *            Arguments.
 	 */
-    public static void main( String[] args ) {
+	public static void main(final String[] args) {
 		SpringApplication.run(HealthCheck.class, args);
-    }
+	}
+
+	/**
+	 * Add CORS headers globally.
+	 * 
+	 * @return A configuration with CORS enabled.
+	 */
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			@Override
+			public void addCorsMappings(final CorsRegistry registry) {
+				registry
+					.addMapping("/**")
+					.allowedOrigins("*")
+					.allowedMethods("GET", "POST", "DELETE", "PUT");
+			}
+		};
+	}
+
 }

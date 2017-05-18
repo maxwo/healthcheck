@@ -14,10 +14,10 @@ services:
 - docker
 
 after_success:
-- wget https://github.com/maxwo/ci/releases/download/0.1.0/ci-0.1.0-sources.tar.gz -O - | tar -xz
-- ci/travis/codacy_java_coverage.sh
-- ci/travis/coveralls_java_coverage.sh
-- ci/travis/docker_deploy.sh
+- wget https://github.com/maxwo/ci/releases/download/0.1.0/ci-0.1.0-sources.tar.gz -O - | tar -xz -C /tmp
+- /tmp/ci/travis/codacy_java_coverage.sh
+- /tmp/ci/travis/coveralls_java_coverage.sh
+- /tmp/ci/travis/docker_deploy.sh
 
 deploy:
 - provider:     script

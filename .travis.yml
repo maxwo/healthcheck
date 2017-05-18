@@ -17,11 +17,11 @@ after_success:
   - ci/travis/codacy_java_coverage.sh
   - ci/travis/coveralls_java_coverage.sh
   - ci/travis/docker_deploy.sh
-  - mvn javadoc:javadoc
+  - mvn site
 
 deploy:
   - provider: pages
-    local_dir: target/site/apidocs
+    local_dir: target/site
     skip_cleanup: true
     github_token: $GITHUB_TOKEN
     on:

@@ -44,10 +44,15 @@ public class HealthCheck {
 	 * @param args
 	 *            Arguments.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SpringApplication.run(HealthCheck.class, args);
 	}
 
+	/**
+	 * Add CORS headers globally.
+	 * 
+	 * @return A configuration with CORS enabled.
+	 */
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurerAdapter() {

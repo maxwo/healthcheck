@@ -66,17 +66,19 @@ public class HealthCheckController {
 	/**
 	 * Set the healthy flag.
 	 * 
-	 * @param healthy Flag value to set.
+	 * @param healthState Flag value to set.
+	 * @return Health set.
 	 */
 	@ApiOperation(
 			value = "Sets the healthy state.",
 			consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = {
-		@ApiResponse(code = 200, message = "Health state is set.")
+		@ApiResponse(code = 200, message = "Health state is set.", response = Boolean.class)
 	})
 	@RequestMapping(method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public void setHealty(@RequestBody final boolean healthy) {
-		healthCheckDao.setState(healthy);
+	public boolean setHealty(@RequestBody final boolean healthState) {
+		healthCheckDao.setState(healthState);
+		return healthState;
 	}
 
 }

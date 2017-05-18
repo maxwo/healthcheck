@@ -20,16 +20,14 @@
  */
 package io.github.maxwo.healthcheck.controller;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
+import io.github.maxwo.healthcheck.dao.HealthCheckDao;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -41,36 +39,28 @@ import io.swagger.annotations.ApiResponses;
  * @author Maxime Wojtczak
  */
 @Api(
-	value = "/healthcheck",
-	tags = {"test", "healthcheck"}
+	value = "/healthcheck"
 )
-@Controller
+@RestController
 @RequestMapping(value = "/healthcheck")
 public class HealthCheckController {
 
-	/**
-	 * Healthy indicator.
-	 */
-	private boolean healthy = false;
+	/** DAO keeping the healthcheck state */
+	@Autowired
+	private HealthCheckDao healthCheckDao;
 
 	/**
-	 * Indicates whether the service is healthy or not.
+	 * Retrieve the healthy flag.
 	 * 
 	 * @return Healthy state.
 	 */
-	@ApiOperation(value = "Check if the service is healthy.")
+	@ApiOperation(value = "Retrieve the healthy flag.")
 	@ApiResponses(value = {
-		@ApiResponse(code = 204, message = "Service is healthy."),
-		@ApiResponse(code = 500, message = "Service is unhealthy.")
+		@ApiResponse(code = 200, message = "Health state.", response = Boolean.class),
 	})
-	@CrossOrigin
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<Void> isHealthy() {
-		if (healthy) {
-			return ResponseEntity.noContent().build();
-		} else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+	public boolean isHealthy() {
+		return healthCheckDao.getState();
 	}
 
 	/**
@@ -82,13 +72,11 @@ public class HealthCheckController {
 			value = "Sets the healthy state.",
 			consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = {
-		@ApiResponse(code = 204, message = "Healthy state is set.")
+		@ApiResponse(code = 200, message = "Health state is set.")
 	})
-	@CrossOrigin
-	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@RequestMapping(method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public void setHealty(@RequestBody boolean healthy) {
-		this.healthy = healthy;
+	public void setHealty(@RequestBody final boolean healthy) {
+		healthCheckDao.setState(healthy);
 	}
 
 }

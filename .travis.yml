@@ -35,6 +35,6 @@ deploy:
     branch:     master
 - provider:     releases
   api_key:      665eb95e2232dae24cb178e4e9eda9e04ddc4588
-  file:         target/*.jar
+  file:         target/healthcheck-$TRAVIS_TAG.jar
   on:
     tags:       true

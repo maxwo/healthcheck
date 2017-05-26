@@ -39,7 +39,8 @@ public class HealthStateIndicator implements HealthIndicator {
 	@Autowired
 	private HealthCheckDao healthCheckDao;
 
-	/* (non-Javadoc)
+	/**
+	 * {@inheritDoc}
 	 * @see org.springframework.boot.actuate.health.HealthIndicator#health()
 	 */
 	@Override

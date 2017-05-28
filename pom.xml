@@ -26,10 +26,9 @@
 
 	<developers>
 		<developer>
+			<id>maximewojtczak</id>
 			<name>Maxime Wojtczak</name>
 			<email>maxime.wojtczak@zenika.com</email>
-			<organization>Zenika</organization>
-			<organizationUrl>http://www.zenika.com</organizationUrl>
 		</developer>
 	</developers>
 
@@ -76,6 +75,13 @@
 		</dependency>
 	</dependencies>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -115,13 +121,25 @@
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
-						<phase>site</phase>
 						<goals>
-							<goal>aggregate</goal>
+							<goal>jar</goal>
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>pl.project13.maven</groupId>
 				<artifactId>git-commit-id-plugin</artifactId>

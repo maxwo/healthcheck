@@ -1,0 +1,6 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+healthcheck,io.github.maxwo.healthcheck.controller,HealthCheckController,0,13,0,0,0,4,0,3,0,3
+healthcheck,io.github.maxwo.healthcheck.indicator,HealthStateIndicator,0,19,0,2,0,10,0,3,0,2
+healthcheck,io.github.maxwo.healthcheck.dao.impl,HealthCheckDaoImpl,0,13,0,0,0,5,0,3,0,3
+healthcheck,io.github.maxwo.healthcheck,HealthCheck,5,8,0,0,2,2,1,2,1,2
+healthcheck,io.github.maxwo.healthcheck,HealthCheck.new WebMvcConfigurerAdapter() {...},0,37,0,0,0,6,0,2,0,2

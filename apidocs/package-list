@@ -1,0 +1,5 @@
+io.github.maxwo.healthcheck
+io.github.maxwo.healthcheck.controller
+io.github.maxwo.healthcheck.dao
+io.github.maxwo.healthcheck.dao.impl
+io.github.maxwo.healthcheck.indicator

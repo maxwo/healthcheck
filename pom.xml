@@ -14,7 +14,7 @@
 	</parent>
 
 	<name>healthcheck</name>
-	<description>A dummy project implementing a health check for testing purposes.</description>
+	<description>A simple project implementing a health check for testing purposes.</description>
 	<url>http://maxwo.github.io/healthcheck/</url>
 
 	<licenses>

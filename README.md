@@ -8,3 +8,8 @@ curl http://127.0.0.1:8080/healthcheck
 
 ## Set healthcheck state
 curl -X PUT -H 'Content-type: application/json' -d 'true' http://127.0.0.1:8080/healthcheck
+
+## Healthcheck endpoint
+curl http://127.0.0.1:8080/health
+
+It should return a 200 OK status when healthy, otherwise, 5XX.

@@ -3,7 +3,7 @@ FROM openjdk:8-jre-alpine
 MAINTAINER Maxime Wojtczak <maxime.wojtczak@zenika.com>
 
 ENV PROJECT healthcheck
-ENV VERSION 0.2.0
+ENV VERSION 0.2.1
 
 COPY target/$PROJECT-$VERSION.jar /healthcheck.jar
 

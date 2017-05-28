@@ -3,6 +3,10 @@
 
 A dummy project implementing a health check for testing purposes.
 
+## Run
+docker pull maxwo/healthcheck
+docker run -p 8080:8080 maxwo/healthcheck
+
 ## Get healthcheck state
 curl http://127.0.0.1:8080/healthcheck
 
@@ -12,4 +16,4 @@ curl -X PUT -H 'Content-type: application/json' -d 'true' http://127.0.0.1:8080/
 ## Healthcheck endpoint
 curl http://127.0.0.1:8080/health
 
-It should return a 200 OK status when healthy, otherwise, 5XX.
+It should return a 200 OK status when healthy, otherwise, 503.
